@@ -25,6 +25,8 @@ return new class extends Migration
                 ->cascadeOnDelete();
             $table->unsignedSmallInteger('quantity')->default(1);
             $table->json('option')->nullable();
+            $table->unique(['cookie_id', 'product_id']);
+
             $table->timestamps();
         });
     }
