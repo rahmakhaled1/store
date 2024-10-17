@@ -22,8 +22,7 @@ class CheckUserType
             return redirect()->route('login');
         }
         if ($user->type != $type){
-            //return abort(403);
-            return redirect('https://cdn.dribbble.com/users/2449060/screenshots/6787406/403_2x_2x.png');
+             abort(403);
         }
         return $next($request);
 
