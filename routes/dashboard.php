@@ -6,7 +6,7 @@ use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 Route::group([
-    'middleware'=>['auth','auth-type:admin'],
+    'middleware'=>['auth-type:admin'],
     'as'=>'dashboard.',
     'prefix'=>'dashboard'
 ],function (){

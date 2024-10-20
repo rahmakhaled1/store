@@ -32,11 +32,10 @@ class SendOrderCreatedNotification
         //$store = $event->order->store;
 
         $order = $event->order;
-        //dd($order);
-
+        $addr = $order->billingAddress;
         $user = User::where('store_id', $event->order->store_id)->first();
             if ($user) {
-                $user->notify(new OrderCreatedNotification($order));
+                $user->notify(new OrderCreatedNotification($order, $addr));
             }
 
 //        $users = User::where('store_id', $event->order->store_id)->get();
