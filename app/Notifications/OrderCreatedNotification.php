@@ -77,16 +77,16 @@ class OrderCreatedNotification extends Notification
             'order_id' => $this->order->id,
         ];
     }
-    public function toBroadcast($notifiable)
-    {
-        //$addr = $this->order->billingAddress;
-        return new BroadcastMessage([
-            'body' =>  "A new order (#{$this->order->number}) created by {$this->order->billingAddress->name} from {$this->order->billingAddress->country_name}.",
-            'icon' => 'fas fa-file',
-            'url' => url('/dashboard'),
-            'order_id' => $this->order->id,
-        ]);
-    }
+//    public function toBroadcast($notifiable)
+//    {
+//        //$addr = $this->order->billingAddress;
+//        return new BroadcastMessage([
+//            'body' =>  "A new order (#{$this->order->number}) created by {$this->order->billingAddress->name} from {$this->order->billingAddress->country_name}.",
+//            'icon' => 'fas fa-file',
+//            'url' => url('/dashboard'),
+//            'order_id' => $this->order->id,
+//        ]);
+//    }
 
     /**
      * Get the array representation of the notification.

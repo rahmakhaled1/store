@@ -87,18 +87,33 @@
                 </div>
                 <div class="col-lg-4 col-md-4 col-12">
                     <div class="top-end">
+                        @auth('web')
+                            <div class="user">
+                                <i class="lni lni-user"></i>
+                                {{Auth::guard('web')->user()->name}}
+                            </div>
+                            <ul class="user-login">
+                                <li>
+                                    <a href="{{route('logout')}}" onclick="event.preventDefault();document.getElementById('logout').submit()">Sign Out</a>
+                                </li>
+                                <form action="{{route('logout')}}" id="logout" method="post" style="display:none">
+                                    @csrf
+                                </form>
+                            </ul>
+                        @else
                         <div class="user">
                             <i class="lni lni-user"></i>
                             Hello
                         </div>
                         <ul class="user-login">
                             <li>
-                                <a href="{{route('login')}}"></a>
+                                <a href="{{route('login')}}">Login</a>
                             </li>
                             <li>
                                 <a href="{{route('register')}}">Register</a>
                             </li>
                         </ul>
+                        @endauth
                     </div>
                 </div>
             </div>
