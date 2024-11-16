@@ -70,7 +70,7 @@ return [
     */
 
     'timezone' => 'UTC',
-    'currency'=>'USD',
+    'currency' => 'USD',
     'api_token' => env('API_TOKEN'),
 
     /*
@@ -97,7 +97,7 @@ return [
     |
     */
 
-    'fallback_locale' => 'en',
+    'fallback_locale' => 'ar',
 
     /*
     |--------------------------------------------------------------------------

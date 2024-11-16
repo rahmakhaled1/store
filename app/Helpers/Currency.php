@@ -1,6 +1,9 @@
 <?php
+
 namespace App\Helpers;
-use Brick\Math\Exception\NumberFormatException;
+
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Session;
 use NumberFormatter;
 
 class Currency
@@ -9,33 +12,22 @@ class Currency
     {
         return static::format(...$params);
     }
+
     public static function format($amount, $currency = null)
     {
-        try {
-            $formatter = new NumberFormatter(config('app.locale'), NumberFormatter::CURRENCY);
+        $baseCurrency = config('app.currency', 'USD');
 
-            if ($currency === null) {
-                $currency = config('app.currency', 'USD');
-            }
+        $formatter = new NumberFormatter(config('app.locale'), NumberFormatter::CURRENCY);
 
-            return $formatter->formatCurrency($amount, $currency);
-        } catch (NumberFormatException $e) {
-            // معالجة الخطأ إذا فشل تنسيق العملة
-            return 'Error formatting currency';
+        if ($currency === null) {
+            $currency = Session::get('currency_code', $baseCurrency);
         }
+
+        if ($currency != $baseCurrency) {
+            $rate = Cache::get('currency_rate_' . $currency, 1);
+            $amount = $amount * $rate;
+        }
+
+        return $formatter->formatCurrency($amount, $currency);
     }
 }
-//class Currency
-//{
-//    public static function format($amount ,$currency = null)
-//    {
-//        $formatter = new NumberFormatter(config('app.locale'),NumberFormatter::CURRENCY);
-//        if($currency === null){
-//            $currency =config('app.currency','USD');
-//        }
-//        return $formatter->formatCurrency($amount,$currency);
-//    }
-//}
-
-
-
