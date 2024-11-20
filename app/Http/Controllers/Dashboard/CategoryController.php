@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -18,6 +19,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
+
+        if (!Gate::allows('categories.view')) {
+            abort(403);
+        }
         $request = request();
 
         $categories= Category::with('parent')
@@ -36,7 +41,7 @@ class CategoryController extends Controller
 //            ])
             ->filter($request->query())
             ->latest()
-            ->paginate(); //return collection object
+            ->paginate(4); //return collection object
 
         //$categories=Category::active()->paginate();
 
@@ -50,6 +55,9 @@ class CategoryController extends Controller
      */
     public function create()
     {
+        if (Gate::denies('categories.create')) {
+            abort(403);
+        }
         $parents=Category::all();
         $category=new Category();
         return view('dashboard.categories.create',compact('parents','category'));
@@ -63,6 +71,7 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+        Gate::authorize('categories.create');
         $request->validate(Category::rules(),[
             'required'=>'This filed is required',
             'unique'=>'This name is already exists',
@@ -86,6 +95,9 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
+        if (Gate::denies('categories.view')) {
+            abort(403);
+        }
         return view('dashboard.categories.show',[
             'category'=>$category
         ]);
@@ -99,6 +111,7 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
+        Gate::authorize('categories.update');
         $category=Category::findorfail($id);
 
         //SELECT * FROM categories WHERE id <> $id
@@ -156,6 +169,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
+        Gate::authorize('categories.delete');
         //$category=Category::findorfail($id);
         $category->delete();
 
