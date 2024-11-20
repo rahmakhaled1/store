@@ -12,7 +12,7 @@ class Role extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name'
+        'name',
     ];
 
     public function abilities()
@@ -20,52 +20,54 @@ class Role extends Model
         return $this->hasMany(RoleAbility::class);
     }
 
-     public static function createWithAbilities(Request $request)
-     {
-         DB::beginTransaction();
-         try {
-             $role = Role::create([
-                 'name' => $request->post('name'),
-             ]);
+    public static function createWithAbilities(Request $request)
+    {
+        DB::beginTransaction();
+        try {
+            $role = Role::create([
+                'name' => $request->post('name'),
+            ]);
 
-             foreach ($request->post('abilities') as $ability => $value){
-                 RoleAbility::create([
-                     'role_id' => $role->id,
-                     'ability' => $ability,
-                     'type' => $value,
-                 ]);
-             }
-             DB::commit();
-         } catch (\Exception $e){
-             DB::rollBack();
-             throw $e;
-         }
-         return $role;
-     }
+            foreach ($request->post('abilities') as $ability => $value) {
+                RoleAbility::create([
+                    'role_id' => $role->id,
+                    'ability' => $ability,
+                    'type' => $value,
+                ]);
+            }
+            DB::commit();
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            throw $e;
+        }
+
+        return $role;
+    }
 
     public function updateWithAbilities(Request $request)
     {
         DB::beginTransaction();
         try {
-            $this -> update([
+            $this->update([
                 'name' => $request->post('name'),
             ]);
 
-            foreach ($request->post('abilities') as $ability => $value){
+            foreach ($request->post('abilities') as $ability => $value) {
                 RoleAbility::updateOrCreate([
                     'role_id' => $this->id,
                     'ability' => $ability,
-                    ],
-                    [
-                        'type' => $value,
-                    ]);
+                ], [
+                    'type' => $value,
+                ]);
             }
             DB::commit();
-        } catch (\Exception $e){
+
+        } catch (\Exception $e) {
             DB::rollBack();
             throw $e;
         }
+
         return $this;
     }
 }
-

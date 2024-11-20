@@ -34,11 +34,10 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-
-
         foreach ($this->app->make('abilities') as $code =>$lable){
             Gate::define($code,function ($user) use ($code){
                 return $user->hasAbility($code);
+
             });
         }
     }
