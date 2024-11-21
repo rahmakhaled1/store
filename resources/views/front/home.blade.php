@@ -1,15 +1,10 @@
 <x-front-layout>
 
-    @push('styles')
-        <link rel="stylesheet" href="/assets/css/bootstrap.min.css" />
-        <link rel="stylesheet" href="/assets/css/LineIcons.3.0.css" />
-        <link rel="stylesheet" href="/assets/css/tiny-slider.css" />
-        <link rel="stylesheet" href="/assets/css/glightbox.min.css" />
-        <link rel="stylesheet" href="/assets/css/main.css" />
-    @endpush
+
     <!-- Start Hero Area -->
     <section class="hero-area">
         <div class="container">
+            <x-alert type="info"/>
             <div class="row">
                 <div class="col-lg-8 col-12 custom-padding-right">
                     <div class="slider-head">
