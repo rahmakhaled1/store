@@ -1,16 +1,16 @@
 @extends('layouts.dashboard')
 
-@section('title','Roles Page')
+@section('title','Admins Page')
 @section('breadcrumb')
     @parent
-    <li class="breadcrumb-item active">Roles</li>
+    <li class="breadcrumb-item active">Admins</li>
 @endsection
 
 @section('content')
     <div style="padding-left: 25px" class="mb-5">
-        @can('create', 'App\Models\Role')
-        <a href="{{route('dashboard.roles.create')}}" class="btn btn-sm btn-outline-primary mr-2">Create New Role</a>
-        @endcan
+
+        <a href="{{route('dashboard.admins.create')}}" class="btn btn-sm btn-outline-primary mr-2">Create New Admin</a>
+
 
     </div>
 <x-alert type="success"/>
@@ -26,20 +26,20 @@
         </tr>
         </thead>
         <tbody>
-        @forelse($roles as $role)
+        @forelse($admins as $admin)
         <tr>
 
-            <td>{{$role->id}}</td>
-            <td><a href="{{route('dashboard.roles.show',$role->id)}}">{{$role->name}}</a></td>
-            <td>{{$role->created_at}}</td>
+            <td>{{$admin->id}}</td>
+            <td><a href="{{route('dashboard.admins.show',$admin->id)}}">{{$admin->name}}</a></td>
+            <td>{{$admin->created_at}}</td>
             <td>
-                @can('update', $role)
-                 <a href="{{route('dashboard.roles.edit',$role->id)}}" class="btn btn-sm btn-outline-success">Edit</a>
+                @can('admins.update')
+                 <a href="{{route('dashboard.admins.edit',$admin->id)}}" class="btn btn-sm btn-outline-success">Edit</a>
                 @endcan
             </td>
             <td>
-                 @can('delete', $role)
-                 <form action="{{route('dashboard.roles.destroy',$role->id)}}" method="post">
+                 @can('admins.delete')
+                 <form action="{{route('dashboard.admins.destroy',$admin->id)}}" method="post">
                         @csrf
                         @method('delete')
                         <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
@@ -49,12 +49,12 @@
         </tr>
         @empty
             <tr>
-                <td colspan="4">No Roles Defined</td>
+                <td colspan="4">No admins Defined</td>
             </tr>
         @endforelse
         </tbody>
     </table>
-    {{$roles->withQueryString()->links()}}
+    {{$admins->withQueryString()->links()}}
 </div>
 @endsection
 

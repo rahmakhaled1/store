@@ -205,7 +205,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 @can('categories.view')
                                     <li class="nav-item">
                                         <a href="{{route('dashboard.categories.index')}}" class="nav-link active">
-                                            <i class="far fa-circle nav-icon"></i>
+                                            <i class="nav-icon fas fa-layer-group"></i>
                                             <p>Category</p>
                                             <span class="right badge badge-danger">New</span>
                                         </a>
@@ -216,7 +216,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 @can('products.view')
                                     <li class="nav-item">
                                         <a href="{{route('dashboard.products.index')}}" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
+                                            <i class="nav-icon fas fa-box"></i>
                                             <p>Products</p>
                                         </a>
                                     </li>
@@ -226,7 +226,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 @can('orders.view')
                                     <li class="nav-item">
                                         <a href="#" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
+                                            <i class="nav-icon fas fa-receipt"></i>
                                             <p>Orders</p>
                                         </a>
                                     </li>
@@ -238,8 +238,26 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         @can('roles.view')
                             <li class="nav-item">
                                 <a href="{{route('dashboard.roles.index')}}" class="nav-link">
-                                    <i class="nav-icon fas fa-th"></i>
+                                    <i class="nav-icon fas fa-shield-alt"></i>
                                     <p>Roles</p>
+                                </a>
+                            </li>
+                        @endcan
+
+                        @can('users.view')
+                            <li class="nav-item">
+                                <a href="{{route('dashboard.users.index')}}" class="nav-link">
+                                    <i class="nav-icon fas fa-users"></i>
+                                    <p>Users</p>
+                                </a>
+                            </li>
+                        @endcan
+
+                        @can('admins.view')
+                            <li class="nav-item">
+                                <a href="{{route('dashboard.admins.index')}}" class="nav-link">
+                                    <i class="nav-icon fas fa-user-shield"></i>
+                                    <p>Admins</p>
                                 </a>
                             </li>
                         @endcan

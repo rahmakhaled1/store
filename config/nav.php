@@ -30,11 +30,26 @@ return [
         'ability' => 'orders.view',
     ],
     [
-        'icon' => 'fas fa-shield nav-icon',
+        'icon' => 'fas fa-shield-alt',
         'route' => 'dashboard.roles.index',
         'title' => 'Roles',
-        'active' => 'dashboard.orders.*',
+        'active' => 'dashboard.roles.*',
         'ability' => 'roles.view',
+    ],
+
+    [
+        'icon' => 'fas fa-users',
+        'route' => 'dashboard.users.index',
+        'title' => 'Users',
+        'active' => 'dashboard.users.*',
+        'ability' => 'users.view',
+    ],
+    [
+        'icon' => 'fas fa-user-shield',
+        'route' => 'dashboard.admins.index',
+        'title' => 'Admins',
+        'active' => 'dashboard.admins.*',
+        'ability' => 'admins.view',
     ],
 
 ];

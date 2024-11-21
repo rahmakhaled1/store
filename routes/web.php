@@ -21,6 +21,7 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
 Route::group(['prefix' => LaravelLocalization::setLocale()], function() {
     Route::get('/', [HomeController::class, 'index'])
         ->name('home');

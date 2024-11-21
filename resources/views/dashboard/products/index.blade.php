@@ -48,6 +48,7 @@
             <td>{{$product->store->name}}</td>
             <td>{{$product->created_at}}</td>
             <td>
+
                  <a href="{{route('dashboard.products.edit',$product->id)}}" class="btn btn-sm btn-outline-success">Edit</a>
             </td>
             <td>

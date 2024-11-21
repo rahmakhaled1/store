@@ -3,14 +3,14 @@
 @section('title','Roles Page')
 @section('breadcrumb')
     @parent
-    <li class="breadcrumb-item active">Roles</li>
+    <li class="breadcrumb-item active">Users</li>
 @endsection
 
 @section('content')
     <div style="padding-left: 25px" class="mb-5">
-        @can('create', 'App\Models\Role')
-        <a href="{{route('dashboard.roles.create')}}" class="btn btn-sm btn-outline-primary mr-2">Create New Role</a>
-        @endcan
+
+        <a href="{{route('dashboard.users.create')}}" class="btn btn-sm btn-outline-primary mr-2">Create New User</a>
+
 
     </div>
 <x-alert type="success"/>
@@ -26,20 +26,20 @@
         </tr>
         </thead>
         <tbody>
-        @forelse($roles as $role)
+        @forelse($users as $user)
         <tr>
 
-            <td>{{$role->id}}</td>
-            <td><a href="{{route('dashboard.roles.show',$role->id)}}">{{$role->name}}</a></td>
-            <td>{{$role->created_at}}</td>
+            <td>{{$user->id}}</td>
+            <td><a href="{{route('dashboard.users.show',$user->id)}}">{{$user->name}}</a></td>
+            <td>{{$user->created_at}}</td>
             <td>
-                @can('update', $role)
-                 <a href="{{route('dashboard.roles.edit',$role->id)}}" class="btn btn-sm btn-outline-success">Edit</a>
+                @can('users.update')
+                 <a href="{{route('dashboard.users.edit',$user->id)}}" class="btn btn-sm btn-outline-success">Edit</a>
                 @endcan
             </td>
             <td>
-                 @can('delete', $role)
-                 <form action="{{route('dashboard.roles.destroy',$role->id)}}" method="post">
+                 @can('users.delete')
+                 <form action="{{route('dashboard.users.destroy',$user->id)}}" method="post">
                         @csrf
                         @method('delete')
                         <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
@@ -49,12 +49,12 @@
         </tr>
         @empty
             <tr>
-                <td colspan="4">No Roles Defined</td>
+                <td colspan="4">No Users Defined</td>
             </tr>
         @endforelse
         </tbody>
     </table>
-    {{$roles->withQueryString()->links()}}
+    {{$users->withQueryString()->links()}}
 </div>
 @endsection
 
