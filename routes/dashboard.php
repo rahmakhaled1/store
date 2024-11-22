@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Dashboard\AdminsController;
 
+use App\Http\Controllers\Dashboard\ImportProductsController;
 use App\Http\Controllers\Dashboard\UsersController;
 use App\Http\Controllers\Dashboard\CategoryController;
 use App\Http\Controllers\Dashboard\ProductsController;
@@ -31,6 +32,11 @@ Route::group([
     //Route::resource('/roles',RolesController::class);
     //Route::resource('/admins', AdminsController::class);
     //Route::resource('/users', UsersController::class);
+
+    Route::get('products/import',[ImportProductsController::class,'create'])
+        ->name('products.import');
+    Route::post('products/import',[ImportProductsController::class,'store'])
+        ->name('products.import');
 
     Route::resources([
         'products' => ProductsController::class,
