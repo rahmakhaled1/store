@@ -1,13 +1,16 @@
 <?php
 
+use App\Http\Controllers\Auth\SocialLoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Front\Auth\TwoFactorAuthenticationController;
 use App\Http\Controllers\Front\CartController;
 use App\Http\Controllers\Front\CheckoutController;
 use App\Http\Controllers\Front\CurrencyConverterController;
 use App\Http\Controllers\Front\HomeController;
+use App\Http\Controllers\Front\PaymentController;
 use App\Http\Controllers\Front\ProductsController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SocialController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
@@ -43,7 +46,23 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function() {
     Route::post('currency', [CurrencyConverterController::class, 'store'])
         ->name('currency.store');
 });
-    Route::middleware('auth')->group(function () {
+Route::get('auth/{provider}/redirect',[SocialLoginController::class,'redirect'])
+        ->name('auth.social.redirect');
+
+Route::get('auth/{provider}/callback', [SocialLoginController::class, 'callback'])
+    ->name('auth.social.callback');
+
+Route::get('auth/{provider}/user', [SocialController::class, 'index']);
+Route::get('orders/{order}/pay',[PaymentController::class,'create'])
+    ->name('orders.payments.create');
+
+Route::post('orders/{order}/stripe/payment-intent', [PaymentController::class, 'createStripePaymentIntent'])
+    ->name('stripe.paymentIntent.create');
+
+Route::get('orders/{order}/pay/stripe/payment-intent',[PaymentController::class,'confirm'])
+    ->name('stripe.return');
+
+Route::middleware('auth')->group(function () {
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
         Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
         Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
