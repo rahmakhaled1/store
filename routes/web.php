@@ -7,6 +7,7 @@ use App\Http\Controllers\Front\CartController;
 use App\Http\Controllers\Front\CheckoutController;
 use App\Http\Controllers\Front\CurrencyConverterController;
 use App\Http\Controllers\Front\HomeController;
+use App\Http\Controllers\Front\OrdersController;
 use App\Http\Controllers\Front\PaymentController;
 use App\Http\Controllers\Front\ProductsController;
 use App\Http\Controllers\ProfileController;
@@ -61,6 +62,9 @@ Route::post('orders/{order}/stripe/payment-intent', [PaymentController::class, '
 
 Route::get('orders/{order}/pay/stripe/payment-intent',[PaymentController::class,'confirm'])
     ->name('stripe.return');
+
+Route::get('/orders/{order}', [OrdersController::class, 'show'])
+    ->name('orders.show');
 
 Route::middleware('auth')->group(function () {
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
